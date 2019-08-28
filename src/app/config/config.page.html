@@ -1,0 +1,25 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-title>
+			Dividir cerveja
+		</ion-title>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content>
+	<div *ngIf="error" class="ion-color-danger">Preencha corretamente o valor e a quantidade de cervejas</div>
+	<div class="ion-padding">
+		<div class="linha gridHeader">
+			<div class="title negrito">Valor de cada cerveja</div>
+			<div class="title negrito">Quantidade de cervejas</div>
+		</div>
+
+		<div class="linha">
+			<ion-input text-center min="0" type="number" placeholder="" class="input-with-border" [(ngModel)]="this._tableService.beer_unit_value"></ion-input>
+			<ion-input text-center min="0" type="number" placeholder="" class="input-with-border" [(ngModel)]="this._tableService.beer_ammount"></ion-input>
+		</div>
+	</div>
+	<div class="linha-botoes">
+		<button (click)="setStartInForEachDrinker()" class="button-blue">Continuar</button>
+	</div>
+</ion-content>
