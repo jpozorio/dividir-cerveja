@@ -1,6 +1,7 @@
 node_modules/
 .idea/
 dividir-cerveja.iml
+dist/
 e2e/
 platforms/
 plugins/

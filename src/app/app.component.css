@@ -1,0 +1,201 @@
+
+p {
+  font-family: Lato;
+}
+
+.mat-slide-toggle {
+  line-height: 60px;
+}
+/deep/ .mat-slide-toggle-bar {
+  height: 25px !important;
+  width: 75px !important;
+}
+
+/deep/ .mat-slide-toggle-thumb {
+  height: 30px !important;
+  width: 30px !important;
+}
+
+/deep/ .mat-slide-toggle.mat-checked .mat-slide-toggle-thumb-container {
+  transform: translate3d(48px,0,0) !important;
+  /*background-color: green;*/
+}
+.example-full-width {
+  width: 100%;
+}
+input {
+  font-size: 35px;
+  padding: 20px;
+}
+
+.linha {
+  -webkit-box-shadow: 0px 1px 1px #efefef;
+  -moz-box-shadow: 0px 1px 1px #efefef;
+  box-shadow: 0px 1px 1px #efefef;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.linha-botoes {
+  padding: 10px;
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.justify-space-around {
+  justify-content: space-around;
+}
+
+.name-colum {
+  padding: 20px 5px 20px 5px;
+}
+
+.config-label {
+  padding: 8px;
+  font-weight: bold;
+}
+
+.title {
+  padding: 20px;
+  width: 30%;
+  font-size: 50px;
+  text-align: center;
+}
+
+.flex-grow-1 {
+  flex-grow: 1;
+  flex-basis: 30%;
+}
+
+.gridHeader {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #286920;
+  box-shadow: 0px 1px 1px #888888;
+  color: #FFFFFF;
+}
+
+.gridHeader-row {
+  margin-top: 10px  ;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: #286920;
+  box-shadow: 0px 1px 1px #888888;
+  color: #FFFFFF;
+}
+
+.negrito {
+  font-weight: bold;
+}
+
+.center {
+  align-items: center;
+}
+
+.button-blue {
+  padding: 10px;
+  background-color: #286920;
+  color: #FFFFFF;
+  font-weight: bold;
+}
+
+.button-dark {
+  padding: 10px;
+  background-color: #000000;
+  color: #FFFFFF;
+  font-weight: bold;
+}
+
+.button-red {
+  padding: 10px;
+  background-color: #ef3400;
+  color: #FFFFFF;
+  font-weight: bold;
+}
+
+.splash {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0000a2;
+}
+
+.spinner {
+  margin: 100px auto;
+  width: 40px;
+  height: 40px;
+  position: relative;
+}
+
+.cube1, .cube2 {
+  background-color: #333;
+  width: 15px;
+  height: 15px;
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  -webkit-animation: sk-cubemove 1.8s infinite ease-in-out;
+  animation: sk-cubemove 1.8s infinite ease-in-out;
+}
+
+.cube2 {
+  -webkit-animation-delay: -0.9s;
+  animation-delay: -0.9s;
+}
+
+@-webkit-keyframes sk-cubemove {
+  25% { -webkit-transform: translateX(42px) rotate(-90deg) scale(0.5) }
+  50% { -webkit-transform: translateX(42px) translateY(42px) rotate(-180deg) }
+  75% { -webkit-transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5) }
+  100% { -webkit-transform: rotate(-360deg) }
+}
+
+@keyframes sk-cubemove {
+  25% {
+    transform: translateX(42px) rotate(-90deg) scale(0.5);
+    -webkit-transform: translateX(42px) rotate(-90deg) scale(0.5);
+  } 50% {
+      transform: translateX(42px) translateY(42px) rotate(-179deg);
+      -webkit-transform: translateX(42px) translateY(42px) rotate(-179deg);
+    } 50.1% {
+        transform: translateX(42px) translateY(42px) rotate(-180deg);
+        -webkit-transform: translateX(42px) translateY(42px) rotate(-180deg);
+      } 75% {
+          transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5);
+          -webkit-transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5);
+        } 100% {
+            transform: rotate(-360deg);
+            -webkit-transform: rotate(-360deg);
+          }
+}
+
+.input-without-border {
+  background-color: #286820;
+  border: none;
+  color: white;
+  text-align: right;
+  font-size: 50px;
+  font-weight: bold;
+  width: 30%;
+}
+
+.input-drinkers {
+  /*background-color: #286820;*/
+  border-color: #efefef;
+  border: solid;
+  /*color: #286820;*/
+  text-align: left;
+  font-size: 30px;
+  font-weight: bold;
+  width: 30%;
+}

@@ -1,3 +1,78 @@
-<ion-app>
-  <ion-router-outlet></ion-router-outlet>
-</ion-app>
+<div>
+	<div>
+		<div class="linha gridHeader">
+			<div class="linha name-colum">
+				<div>Preço da cerveja</div>
+				<input type="number" class="input-without-border" [(ngModel)]="this._tableService.beer_unit_value"/>
+			</div>
+			<div class="linha name-colum">
+				<div>Quantidade</div>
+				<input type="currency" class="input-without-border" [(ngModel)]="this._tableService.beer_ammount"/>
+			</div>
+			<div class="linha name-colum">
+				<div>Valor da conta</div>
+				<div>{{(this._tableService.beer_ammount * this._tableService.beer_unit_value)|currency:'BRL'}}</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div>
+	<div class="ion-padding">
+		<div class="linha gridHeader-row">
+			<div class="title negrito" style="width: 30%">Nome</div>
+			<div class="title negrito" style="width: 30%">Chegou na</div>
+			<div class="title negrito" style="width: 30%">Pagar</div>
+			<div class="title negrito" style="width: 10%"></div>
+		</div>
+
+		<div class="linha" *ngFor="let drinker of _tableService.drinkers; let idx=index">
+			<input type="text" placeholder="Nome"
+				   class="input-drinkers"
+				   style="border-color: #efefef"
+				   (change)="addNewDrinkerIfNecessary()" [(ngModel)]="drinker.name"/>
+			<input text-center type="number" min="0"
+				   [max]="this._tableService.beer_ammount" placeholder="Chegou na"
+				   class="input-drinkers"
+				   style="border-color: #efefef"
+				   (change)="startInChanged()" [(ngModel)]="drinker.start_in"/>
+			<div text-right disabled="true" type="number"
+				 class="input-drinkers"
+				 style="border-color: #efefef"
+			>{{drinker.should_pay|currency:'BRL'}}</div>
+			<!--			<ion-input text-right disabled="true" type="number" placeholder="" class="input-with-border">{{drinker.ammout_drinked|number:'0.00'}}</ion-input>-->
+
+			<div style="
+			width: 10%;
+			background: none;
+border-color: #efefef;
+  border: #efefef;">
+				<div
+						style="
+			background: none;
+border-color: #efefef;
+vertical-align: middle;
+width: 100%;
+align-items: center;
+  border: #efefef;"
+						*ngIf="drinker.name != '' && this._tableService.drinkers.length > 1 && idx != (this._tableService.drinkers.length-1)"
+						(click)='deleteDrinker(idx)'
+				>
+					<mat-icon style="
+					color: red;
+					text-align: center;
+					width: 100%;
+					font-size: 50px
+">delete</mat-icon>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<mat-slide-toggle color="green" (change)="startInChanged()" style="padding: 40px; font-size: 50px; height: 50px" [(ngModel)]="this._tableService.includeTip">Incluir 10%</mat-slide-toggle>
+
+	<!--	<div class="linha-botoes">-->
+	<!--		<button (click)="addNewDrinker()" class="button-blue">Mais um cachaceiro</button>-->
+	<!--	</div>-->
+
+</div>

@@ -12,6 +12,7 @@ export class TableService {
 	drinkers: Drinker[];
 	beer_ammount: number = 1;
 	beer_unit_value: number = 0;
+	includeTip: boolean = false;
 
 	addBlankDrinker() {
 		this.drinkers.push(
