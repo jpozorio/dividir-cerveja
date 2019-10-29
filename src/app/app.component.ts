@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {TableService, Drinker} from "./table.service";
+import {Drinker, TableService} from "./table.service";
 
 @Component({
 	selector: 'my-app',
@@ -23,8 +23,8 @@ export class AppComponent {
 	}
 
 	addNewDrinkerIfNecessary() {
-		let qtd = this._tableService.drinkers.length;
-		var last: Drinker = this._tableService.drinkers[qtd - 1];
+		const qtd = this._tableService.drinkers.length;
+		const last: Drinker = this._tableService.drinkers[qtd - 1];
 		if (last.name) {
 			this.addNewDrinker();
 		}
@@ -33,7 +33,7 @@ export class AppComponent {
 	getTotalAmmount(): number {
 		let totalAmmount = 0;
 		let qtd = this._tableService.drinkers.length;
-		var last: Drinker;
+		let last: Drinker;
 		for (let d of this._tableService.drinkers) {
 			let number = qtd--;
 			if (!last || last.start_in != d.start_in) {
@@ -45,33 +45,42 @@ export class AppComponent {
 	}
 
 	startInChanged() {
-		let total = this.getTotalAmmount();
-		if (total > this._tableService.beer_ammount || this._tableService.beer_ammount == 0 || total < 0) {
+		const total = this.getTotalAmmount();
+		const beerAmmount = this._tableService.beer_ammount;
+		if (total > beerAmmount || beerAmmount == 0 || total < 0) {
 			return;
 		}
-		let assign: Drinker[] = Object.assign([], this._tableService.drinkers);
-		let drinkers: Drinker[] = assign.sort((da, db) =>
-				db.start_in - da.start_in
-		);
-		let qtd = drinkers.length - 1;
-		var last: Drinker;
-		let totalAmmount = 0;
-		for (let d of drinkers) {
-			if (d.name) {
-				let number = qtd--;
-				var currentStartIn = d.start_in;
-				currentStartIn = !currentStartIn ? 1 : currentStartIn;
-				if (last && last.start_in == currentStartIn) {
-					d.ammout_drinked = last.ammout_drinked;
-					d.should_pay = last.should_pay * (this._tableService.includeTip ? 1.1 : 1);
-				} else {
-					d.ammout_drinked = (this._tableService.beer_ammount - totalAmmount - currentStartIn + 1) / number;
-					d.should_pay = (d.ammout_drinked * this._tableService.beer_unit_value) * (this._tableService.includeTip ? 1.1 : 1);
+		let qtdeToSplit = [];
+		let drinkers = this._tableService.drinkers.filter(d => d.name != '');
+		for (let i = 1; i <= beerAmmount; i++) {
+			let qtde = 0;
+			for (const drinkerCalculating of drinkers) {
+				drinkerCalculating.ammout_drinked = 0;
+				const end = this.fim(drinkerCalculating, beerAmmount);
+				if (i >= drinkerCalculating.start_in && i <= end) {
+					qtde++;
 				}
-				totalAmmount += d.ammout_drinked;
-				last = d;
+			}
+			qtdeToSplit[i] = qtde;
+		}
+
+		for (let index = 1; index < qtdeToSplit.length; index++) {
+			const qtde = qtdeToSplit[index];
+			for (const drinkerCalculating of drinkers) {
+				const end = this.fim(drinkerCalculating, beerAmmount);
+				if (index >= drinkerCalculating.start_in && index <= end) {
+					drinkerCalculating.ammout_drinked += 1 / qtde;
+				}
 			}
 		}
+
+		for (const drinkerCalculating of drinkers) {
+			drinkerCalculating.should_pay = (drinkerCalculating.ammout_drinked * this._tableService.beer_unit_value) * (this._tableService.includeTip ? 1.1 : 1);
+		}
+	}
+
+	fim(d1: Drinker, beerAmmount: number) {
+		return d1.end_in ? d1.end_in : beerAmmount;
 	}
 
 	deleteDrinker(idx: number) {
@@ -79,5 +88,10 @@ export class AppComponent {
 		if (this._tableService.drinkers.length > 0) {
 			this.startInChanged();
 		}
+	}
+
+	partialPayed(drinker: Drinker) {
+		drinker.end_in = this._tableService.beer_ammount;
+		this.startInChanged();
 	}
 }
