@@ -1,7 +1,7 @@
 <div class="linha gridHeader">
   <div class="linha name-colum">
     <div>Preço da cerveja</div>
-    <input (ngModelChange)="startInChanged()" type="number" class="input-without-border" [(ngModel)]="this._tableService.beer_unit_value"/>
+    <input (ngModelChange)="this._tableService.startInChanged()" type="number" class="input-without-border" [(ngModel)]="this._tableService.beer_unit_value"/>
   </div>
   <div class="linha name-colum">
     <div>Quantidade</div>
@@ -9,7 +9,8 @@
       <mat-icon class="top-icon" (click)="this._tableService.addBeer()">
         add
       </mat-icon>
-      <input (ngModelChange)="startInChanged()" type="number" class="input-without-border-center" [(ngModel)]="this._tableService.beer_ammount"/>
+      <input (ngModelChange)="this._tableService.startInChanged()" type="number" class="input-without-border-center"
+             [ngModel]="this._tableService.beer_ammount"/>
       <mat-icon class="top-icon" (click)="this._tableService.rmBeer()">
         remove
       </mat-icon>
@@ -42,7 +43,7 @@
         <input matInput text-center type="number" min="0"
                [max]="this._tableService.beer_ammount"
                [disabled]="drinker.partial_payed"
-               (change)="startInChanged()" [(ngModel)]="drinker.start_in"/>
+               (change)="this._tableService.startInChanged()" [(ngModel)]="drinker.start_in"/>
       </mat-form-field>
       <div text-right
            class="input-drinkers input-drinkers-padding-top"
@@ -73,7 +74,7 @@
     </div>
   </div>
   <div>
-    <mat-slide-toggle color="green" (change)="startInChanged()" style="padding: 20px; font-size: 15px; height: 50px" [(ngModel)]="this._tableService.includeTip"></mat-slide-toggle>
+    <mat-slide-toggle color="green" (change)="this._tableService.startInChanged()" style="padding: 20px; font-size: 15px; height: 50px" [(ngModel)]="this._tableService.includeTip"></mat-slide-toggle>
     Incluir 10%
   </div>
 
