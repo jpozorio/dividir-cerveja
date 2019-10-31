@@ -9,7 +9,7 @@ import {Drinker, TableService} from "./table.service";
 export class AppComponent {
 
   constructor(
-    private _tableService: TableService,
+    public _tableService: TableService,
   ) {
     if (!this._tableService.drinkers || this._tableService.drinkers.length == 0) {
       _tableService.inicializeTable();
