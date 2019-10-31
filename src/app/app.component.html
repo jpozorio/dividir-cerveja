@@ -1,85 +1,85 @@
-<div>
-	<div>
-		<div class="linha gridHeader">
-			<div class="linha name-colum">
-				<div>Preço da cerveja</div>
-				<input (ngModelChange)="startInChanged()" type="number" class="input-without-border" [(ngModel)]="this._tableService.beer_unit_value"/>
-			</div>
-			<div class="linha name-colum">
-				<div>Quantidade</div>
-				<input (ngModelChange)="startInChanged()" type="number" class="input-without-border" [(ngModel)]="this._tableService.beer_ammount"/>
-			</div>
-			<div class="linha name-colum">
-				<div>Valor da conta</div>
-				<div>{{(this._tableService.billValue())|currency:'BRL'}}</div>
-			</div>
-		</div>
-	</div>
+<div class="linha gridHeader">
+  <div class="linha name-colum">
+    <div>Preço da cerveja</div>
+    <input (ngModelChange)="startInChanged()" type="number" class="input-without-border" [(ngModel)]="this._tableService.beer_unit_value"/>
+  </div>
+  <div class="linha name-colum">
+    <div>Quantidade</div>
+    <div class="qtde-toolbar">
+      <mat-icon class="top-icon" (click)="this._tableService.addBeer()">
+        add
+      </mat-icon>
+      <input (ngModelChange)="startInChanged()" type="number" class="input-without-border-center" [(ngModel)]="this._tableService.beer_ammount"/>
+      <mat-icon class="top-icon" (click)="this._tableService.rmBeer()">
+        remove
+      </mat-icon>
+    </div>
+  </div>
+  <div class="linha name-colum">
+    <div>Valor da conta</div>
+    <div>{{(this._tableService.billValue())|currency:'BRL'}}</div>
+  </div>
 </div>
 
 <div>
-	<div class="ion-padding">
-		<div class="linha gridHeader-row">
-			<div class="title negrito" style="width: 25%">Nome</div>
-			<div class="title negrito" style="width: 25%">Chegou na</div>
-			<div class="title negrito" style="width: 25%">Pagar</div>
-			<div class="title negrito" style="width: 15%">Parcial</div>
-			<div class="title negrito" style="width: 10%"></div>
-		</div>
+  <div class="ion-padding">
+    <div class="linha gridHeader-row">
+      <div class="title" style="width: 25%">Nome</div>
+      <div class="title" style="width: 15%">Chegou na</div>
+      <div class="title" style="width: 25%">Pagar</div>
+      <div class="title" style="width: 15%">Parcial</div>
+      <div class="title" style="width: 20%"></div>
+    </div>
 
-		<div class="linha" *ngFor="let drinker of _tableService.drinkers; let idx=index">
-			<mat-form-field class="input-drinkers">
-				<input matInput type="text"
-					   placeholder="Nome"
-					   [disabled]="drinker.partial_payed"
-					   (ngModelChange)="addNewDrinkerIfNecessary()" [(ngModel)]="drinker.name"/>
-			</mat-form-field>
-			<mat-form-field class="input-drinkers">
-				<input matInput text-center type="number" min="0"
-					   [max]="this._tableService.beer_ammount"
-					   [disabled]="drinker.partial_payed"
-					   (change)="startInChanged()" [(ngModel)]="drinker.start_in"/>
-			</mat-form-field>
-			<div text-right
-				 class="input-drinkers input-drinkers-padding-top"
-			>{{drinker.should_pay|currency:'BRL'}}</div>
+    <div class="linha" *ngFor="let drinker of _tableService.drinkers; let idx=index">
+      <mat-form-field class="input-drinkers">
+        <input matInput type="text"
+               placeholder="Nome"
+               [disabled]="drinker.partial_payed"
+               (ngModelChange)="addNewDrinkerIfNecessary()" [(ngModel)]="drinker.name"/>
+      </mat-form-field>
+      <mat-form-field class="input-drinkers-15-without-padding">
+        <input matInput text-center type="number" min="0"
+               [max]="this._tableService.beer_ammount"
+               [disabled]="drinker.partial_payed"
+               (change)="startInChanged()" [(ngModel)]="drinker.start_in"/>
+      </mat-form-field>
+      <div text-right
+           class="input-drinkers input-drinkers-padding-top"
+      >{{drinker.should_pay|currency:'BRL'}}</div>
 
-			<div class="input-drinkers-15 input-drinkers-padding-left">
-				<mat-slide-toggle
-						(ngModelChange)="partialPayed(drinker)"
-						color="green"
-						[(ngModel)]="drinker.partial_payed"></mat-slide-toggle>
-			</div>
+      <div class="input-drinkers-15 input-drinkers-padding-left">
+        <mat-slide-toggle
+          (ngModelChange)="partialPayed($event, drinker)"
+          color="green"
+          [(ngModel)]="drinker.partial_payed"></mat-slide-toggle>
+      </div>
 
-			<div class="input-drinkers-10">
-				<div style="background: none; border-color: #efefef; vertical-align: middle; width: 100%; align-items: center;   border: #efefef;"
-					 *ngIf="(drinker.name != '' && !drinker.partial_payed && this._tableService.drinkers.length > 1 && idx != (this._tableService.drinkers.length-1)); else elseBlock"
-					 (click)='deleteDrinker(idx)'
-				>
-					<mat-icon style="
-					color: red;
-					text-align: center;
-					width: 100%;
-					font-size: 50px
-">
-						delete
-					</mat-icon>
-				</div>
-				<ng-template #elseBlock
-							 style="			background: none;border-color: #efefef;vertical-align: middle;width: 100%;align-items: center;  border: #efefef;">
-					{{drinker.end_in}}
-				</ng-template>
-			</div>
-		</div>
-	</div>
-	<div>
-		<mat-slide-toggle color="green" (change)="startInChanged()" style="padding: 40px; font-size: 50px; height: 50px" [(ngModel)]="this._tableService.includeTip"></mat-slide-toggle>
-		Incluir 10%
-	</div>
+      <div class="input-drinkers-10">
+        <div style="background: none; border-color: #efefef; vertical-align: middle; width: 100%; align-items: center;   border: #efefef;"
+             *ngIf="(drinker.name != '' && !drinker.partial_payed && this._tableService.drinkers.length > 1 && idx != (this._tableService.drinkers.length-1)); else elseBlock"
+             (click)='deleteDrinker(idx)'
+        >
+          <mat-icon class="delete-icon">
+            delete
+          </mat-icon>
+        </div>
+        <ng-template #elseBlock>
+          <div class="end-in-number">
+            {{drinker.end_in}}
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+  <div>
+    <mat-slide-toggle color="green" (change)="startInChanged()" style="padding: 20px; font-size: 15px; height: 50px" [(ngModel)]="this._tableService.includeTip"></mat-slide-toggle>
+    Incluir 10%
+  </div>
 
 
-	<!--	<div class="linha-botoes">-->
-	<!--		<button (click)="addNewDrinker()" class="button-blue">Mais um cachaceiro</button>-->
-	<!--	</div>-->
+  <!--	<div class="linha-botoes">-->
+  <!--		<button (click)="addNewDrinker()" class="button-blue">Mais um cachaceiro</button>-->
+  <!--	</div>-->
 
 </div>
